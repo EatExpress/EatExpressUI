@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        language: [ 'javascript', 'python', 'TypeScript' ] # Add or remove languages as needed
+        language: [ 'javascript', 'TypeScript' ] # Add or remove languages as needed
 
     steps:
     - name: Checkout repository
