@@ -1,0 +1,37 @@
+#write new workflow job
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main", "master" ]
+  # schedule:
+  #   - cron: '00 1 * * 3' # Weekly scan on Wednesdays at 01:00 UTC
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      matrix:
+        language: [ 'javascript', 'python', 'go', 'java', 'csharp' ] # Add or remove languages as needed
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Initialize the CodeQL tools
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
